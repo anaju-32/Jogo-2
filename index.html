@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#14213d">
+  <title>Uma Praça para Todos — Jogo de Acessibilidade</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="container">
+    <div class="topline">
+      <span>Jogo educativo • acessibilidade</span>
+      <span>Projeto interativo</span>
+    </div>
+
+    <section class="game-card" id="intro" aria-labelledby="main-title">
+      <p class="pixel-label">Uma aventura de escolhas</p>
+      <h1 id="main-title">Uma Praça<br>para Todos</h1>
+      <p class="intro-copy">
+        A cidade vai realizar um festival gratuito na Praça das Mangueiras. Você faz parte da equipe de estudantes responsável pela organização. O desafio é criar um evento em que pessoas diferentes possam chegar, circular, compreender as informações, participar das atividades e sair com segurança.
+      </p>
+      <p class="intro-copy">
+        Durante a história, você encontrará Ravi, Bia e Tomás. Cada um tem experiências e preferências próprias. Não existe uma solução universal: o caminho mais adequado começa pela escuta e pela remoção de barreiras.
+      </p>
+      <div class="instructions">
+        <strong>Como jogar:</strong> serão 10 momentos de decisão, sempre com três escolhas. Cada decisão altera três indicadores — acessibilidade, participação e autonomia — e influencia o final da história.
+      </div>
+      <button class="pixel-button" id="start-button" type="button">Começar o jogo</button>
+    </section>
+
+    <section class="game-card" id="game" aria-labelledby="scene-title" hidden>
+      <div class="game-header">
+        <div class="progress-row">
+          <span id="chapter-label">Decisão 1 de 10</span>
+          <span id="progress-percent">0%</span>
+        </div>
+        <progress id="progress" value="0" max="10" aria-label="Progresso das decisões"></progress>
+      </div>
+
+      <div class="stats" aria-label="Indicadores construídos pelas escolhas">
+        <div class="stat"><span class="stat-label">Acessibilidade</span><span class="stat-value" id="score-access">0</span></div>
+        <div class="stat"><span class="stat-label">Participação</span><span class="stat-value" id="score-participation">0</span></div>
+        <div class="stat"><span class="stat-label">Autonomia</span><span class="stat-value" id="score-autonomy">0</span></div>
+      </div>
+
+      <p class="pixel-label" id="scene-kicker">Capítulo 1</p>
+      <h2 id="scene-title" tabindex="-1"></h2>
+      <p class="scene-text" id="scene-text"></p>
+      <p class="choice-heading" id="choice-heading">O que você decide fazer?</p>
+      <div class="choices" id="choices" aria-labelledby="choice-heading"></div>
+
+      <section class="feedback" id="feedback" aria-live="polite" hidden>
+        <h3 id="feedback-title">Consequência da escolha</h3>
+        <p id="feedback-text"></p>
+        <p class="impact" id="feedback-impact"></p>
+        <button class="pixel-button" id="next-button" type="button">Próxima decisão</button>
+      </section>
+    </section>
+
+    <section class="game-card" id="ending" aria-labelledby="ending-title" hidden>
+      <p class="pixel-label">Fim da história</p>
+      <h2 id="ending-title" tabindex="-1"></h2>
+      <p id="ending-text" class="scene-text"></p>
+      <div class="ending-score" id="ending-score" aria-label="Resultado dos indicadores"></div>
+      <div class="instructions" id="lesson-text"></div>
+      <button class="pixel-button" id="restart-button" type="button">Jogar novamente</button>
+      <p class="small-note">Acessibilidade não é um favor nem um detalhe decorativo. É uma condição para que todas as pessoas possam exercer o direito de participar.</p>
+    </section>
+
+    <p class="footer">Uma Praça para Todos • História interativa sobre inclusão e acessibilidade</p>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
