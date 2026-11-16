@@ -4,33 +4,80 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#14213d">
+  <meta name="description" content="Uma aventura interativa sobre acessibilidade, inclusão e autonomia.">
   <title>Uma Praça para Todos — Jogo de Acessibilidade</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <main class="container">
-    <div class="topline">
+    <header class="topline">
       <span>Jogo educativo • acessibilidade</span>
-      <span>Projeto interativo</span>
-    </div>
+      <span class="topline-status">Projeto interativo</span>
+    </header>
 
-    <section class="game-card" id="intro" aria-labelledby="main-title">
+    <!-- TELA 1: BOAS-VINDAS E IDENTIFICAÇÃO DO JOGADOR -->
+    <section class="game-card screen" id="nickname-screen" aria-labelledby="main-title">
       <p class="pixel-label">Uma aventura de escolhas</p>
       <h1 id="main-title">Uma Praça<br>para Todos</h1>
       <p class="intro-copy">
-        A cidade vai realizar um festival gratuito na Praça das Mangueiras. Você faz parte da equipe de estudantes responsável pela organização. O desafio é criar um evento em que pessoas diferentes possam chegar, circular, compreender as informações, participar das atividades e sair com segurança.
+        Uma história interativa sobre acessibilidade, inclusão e o direito de participar.
+        Suas decisões vão transformar o caminho da narrativa — e o destino dos personagens.
       </p>
-      <p class="intro-copy">
-        Durante a história, você encontrará Ravi, Bia e Tomás. Cada um tem experiências e preferências próprias. Não existe uma solução universal: o caminho mais adequado começa pela escuta e pela remoção de barreiras.
-      </p>
-      <div class="instructions">
-        <strong>Como jogar:</strong> serão 10 momentos de decisão, sempre com três escolhas. Cada decisão altera três indicadores — acessibilidade, participação e autonomia — e influencia o final da história.
-      </div>
-      <button class="pixel-button" id="start-button" type="button">Começar o jogo</button>
+
+      <form id="nickname-form" class="nickname-form">
+        <label for="nickname">Antes de começar, qual é o seu nickname?</label>
+        <input
+          id="nickname"
+          name="nickname"
+          type="text"
+          minlength="2"
+          maxlength="18"
+          autocomplete="nickname"
+          placeholder="Digite seu nickname"
+          required
+        >
+        <p class="field-hint">Use de 2 a 18 caracteres.</p>
+        <button class="pixel-button" type="submit">Continuar</button>
+      </form>
     </section>
 
-    <section class="game-card" id="game" aria-labelledby="scene-title" hidden>
+    <!-- TELA 2: CENA DE BOAS-VINDAS -->
+    <section class="game-card screen" id="welcome-screen" aria-labelledby="welcome-title" hidden>
+      <p class="pixel-label">Boas-vindas</p>
+      <h2 id="welcome-title">Que bom ter você aqui!</h2>
+      <p class="welcome-player" id="welcome-player"></p>
+      <p class="scene-text">
+        Você está prestes a entrar em uma história na qual suas escolhas realmente mudam o que acontece.
+        A primeira decisão vai definir qual de duas jornadas completamente diferentes você viverá.
+      </p>
+      <div class="route-preview">
+        <article class="route-preview-card">
+          <span class="route-icon" aria-hidden="true">▦</span>
+          <h3>Rota 1 — Cidade para todos</h3>
+          <p>Uma jornada de mobilidade urbana: terminal, calçadas, travessias e transporte público.</p>
+        </article>
+        <article class="route-preview-card">
+          <span class="route-icon" aria-hidden="true">♪</span>
+          <h3>Rota 2 — Cultura para todos</h3>
+          <p>Uma jornada artística: teatro, ensaios, palco, comunicação e experiência do público.</p>
+        </article>
+      </div>
+      <div class="instructions">
+        <strong>Como jogar:</strong> cada jornada tem 10 decisões, contando a primeira escolha que define a rota.
+        Em cada decisão existem três alternativas. Suas escolhas afetam os indicadores de acessibilidade,
+        participação e autonomia e ajudam a determinar o final.
+      </div>
+      <button class="pixel-button" id="start-button" type="button">Começar a aventura</button>
+    </section>
+
+    <!-- TELA 3: JOGO -->
+    <section class="game-card screen" id="game-screen" aria-labelledby="scene-title" hidden>
       <div class="game-header">
+        <div class="game-meta">
+          <span id="player-tag"></span>
+          <span id="route-tag">Primeira decisão</span>
+        </div>
         <div class="progress-row">
           <span id="chapter-label">Decisão 1 de 10</span>
           <span id="progress-percent">0%</span>
@@ -39,38 +86,72 @@
       </div>
 
       <div class="stats" aria-label="Indicadores construídos pelas escolhas">
-        <div class="stat"><span class="stat-label">Acessibilidade</span><span class="stat-value" id="score-access">0</span></div>
-        <div class="stat"><span class="stat-label">Participação</span><span class="stat-value" id="score-participation">0</span></div>
-        <div class="stat"><span class="stat-label">Autonomia</span><span class="stat-value" id="score-autonomy">0</span></div>
+        <div class="stat">
+          <span class="stat-label">Acessibilidade</span>
+          <span class="stat-value" id="score-access">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Participação</span>
+          <span class="stat-value" id="score-participation">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Autonomia</span>
+          <span class="stat-value" id="score-autonomy">0</span>
+        </div>
       </div>
 
-      <p class="pixel-label" id="scene-kicker">Capítulo 1</p>
+      <p class="pixel-label" id="scene-kicker">Prólogo</p>
       <h2 id="scene-title" tabindex="-1"></h2>
       <p class="scene-text" id="scene-text"></p>
       <p class="choice-heading" id="choice-heading">O que você decide fazer?</p>
       <div class="choices" id="choices" aria-labelledby="choice-heading"></div>
 
       <section class="feedback" id="feedback" aria-live="polite" hidden>
-        <h3 id="feedback-title">Consequência da escolha</h3>
+        <h3>Consequência da escolha</h3>
         <p id="feedback-text"></p>
         <p class="impact" id="feedback-impact"></p>
         <button class="pixel-button" id="next-button" type="button">Próxima decisão</button>
       </section>
     </section>
 
-    <section class="game-card" id="ending" aria-labelledby="ending-title" hidden>
-      <p class="pixel-label">Fim da história</p>
+    <!-- TELA 4: END GAME E CRÉDITOS -->
+    <section class="game-card screen" id="endgame-screen" aria-labelledby="ending-title" hidden>
+      <p class="pixel-label">End Game • Fim da jornada</p>
       <h2 id="ending-title" tabindex="-1"></h2>
+      <p class="ending-player" id="ending-player"></p>
       <p id="ending-text" class="scene-text"></p>
       <div class="ending-score" id="ending-score" aria-label="Resultado dos indicadores"></div>
       <div class="instructions" id="lesson-text"></div>
-      <button class="pixel-button" id="restart-button" type="button">Jogar novamente</button>
-      <p class="small-note">Acessibilidade não é um favor nem um detalhe decorativo. É uma condição para que todas as pessoas possam exercer o direito de participar.</p>
+
+      <section class="credits" aria-labelledby="credits-title">
+        <p class="pixel-label">Créditos</p>
+        <h3 id="credits-title">Desenvolvimento do projeto</h3>
+        <dl class="credits-list">
+          <div><dt>Idealização e conceito</dt><dd>Ana Julia</dd></div>
+          <div><dt>Pesquisa e conteúdo educativo</dt><dd>Ana Julia</dd></div>
+          <div><dt>Roteiro e narrativa</dt><dd>Ana Julia</dd></div>
+          <div><dt>Design e identidade visual</dt><dd>Ana Julia</dd></div>
+          <div><dt>Programação HTML</dt><dd>Ana Julia</dd></div>
+          <div><dt>Programação CSS</dt><dd>Ana Julia</dd></div>
+          <div><dt>Programação JavaScript</dt><dd>Ana Julia</dd></div>
+          <div><dt>Testes e documentação</dt><dd>Ana Julia</dd></div>
+        </dl>
+      </section>
+
+      <div class="end-buttons">
+        <button class="pixel-button" id="restart-button" type="button">Jogar novamente</button>
+        <button class="pixel-button secondary-button" id="new-player-button" type="button">Trocar nickname</button>
+      </div>
+      <p class="small-note">
+        Acessibilidade não é um favor nem um detalhe decorativo. É uma condição para que todas as pessoas
+        possam exercer o direito de participar.
+      </p>
     </section>
 
-    <p class="footer">Uma Praça para Todos • História interativa sobre inclusão e acessibilidade</p>
+    <footer class="footer">
+      Uma Praça para Todos • História interativa sobre inclusão e acessibilidade<br>
+      Projeto desenvolvido por Ana Julia
+    </footer>
   </main>
-
-  <script src="script.js" defer></script>
 </body>
 </html>
