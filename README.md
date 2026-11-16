@@ -37,4 +37,17 @@ Cada rota tem nove decisões próprias depois da bifurcação inicial. As escolh
 
 ## Créditos
 
-Todas as funções do projeto são creditadas a **Ana Julia**: idealização, pesquisa, roteiro, design, programação HTML, programação CSS, programação JavaScript, testes e documentação.
+As funções do projeto alternam entre as duas integrantes:
+
+| Função | Responsável |
+|---|---|
+| Idealização e conceito | Ana Julia |
+| Pesquisa e conteúdo educativo | Isabela |
+| Roteiro e narrativa | Ana Julia |
+| Design e identidade visual | Isabela |
+| Programação HTML | Ana Julia |
+| Programação CSS | Isabela |
+| Programação JavaScript | Ana Julia |
+| Testes e documentação | Isabela |
+
+**Projeto desenvolvido por Ana Julia e Isabela.**
