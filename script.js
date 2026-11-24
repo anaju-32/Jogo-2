@@ -1,13 +1,5 @@
 'use strict';
 
-/*
- * UMA PRAÇA PARA TODOS
- * Jogo educativo sobre acessibilidade.
- * Os créditos das funções e etapas do projeto alternam entre Ana Julia e Isabela.
- * Cada partida tem 10 decisões: a primeira abre uma de duas histórias
- * independentes, e cada história possui mais 9 decisões exclusivas.
- */
-
 const firstDecision = {
   kicker: 'Prólogo — A escolha que muda tudo',
   title: 'Dois convites. Dois caminhos.',
